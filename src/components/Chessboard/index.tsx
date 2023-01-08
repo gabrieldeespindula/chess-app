@@ -29,7 +29,37 @@ for (let i = 0; i <= 1; i++) {
   pieces.push({ image: `assets/images/bishop_${color}.png`, x: 5, y })
   pieces.push({ image: `assets/images/queen_${color}.png`, x: 3, y })
   pieces.push({ image: `assets/images/king_${color}.png`, x: 4, y })
+}
 
+let activePiece: HTMLElement | null = null
+
+function grabPiece(e: React.MouseEvent) {
+  const element = e.target as HTMLElement
+  if (element.classList.contains('piece')) {
+    const x = e.clientX - 50
+    const y = e.clientY + 50
+    element.style.position = "absolute"
+    element.style.left = `${x}px`
+    element.style.top = `${y}px`
+
+    activePiece = element
+  }
+}
+
+function movePiece(e: React.MouseEvent) {
+  if (activePiece) {
+    const x = e.clientX - 50
+    const y = e.clientY + 50
+    activePiece.style.position = "absolute"
+    activePiece.style.left = `${x}px`
+    activePiece.style.top = `${y}px`
+  }
+}
+
+function dropPiece(e: React.MouseEvent) {
+  if (activePiece) {
+    activePiece = null
+  }
 }
 
 function Chessboard(): JSX.Element {
@@ -47,7 +77,7 @@ function Chessboard(): JSX.Element {
   return (
     <>
       <h1 className='t-center'>Chessboard</h1>
-      <div className="chessboard">
+      <div className="chessboard" onMouseMove={movePiece} onMouseDown={grabPiece} onMouseUp={dropPiece}>
         {board}
       </div>
     </>

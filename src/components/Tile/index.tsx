@@ -10,7 +10,7 @@ function Tile({ number, image }: Props): JSX.Element {
 
   return (
     <div className={`tile ${isEven ? 'white-tile' : 'black-tile'}`}>
-      {image && <img src={image} />}
+      {image && <div style={{ backgroundImage: `url(${image})` }} className="piece"></div>}
     </div>
   )
 }

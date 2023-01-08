@@ -4,8 +4,20 @@
   display: grid;
   place-content: center;
 
-  img{
-    width: 80px;
+  .piece{
+    width: 100px;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 80px;
+
+    &:hover{
+      cursor: grab;
+    }
+
+    &:active{
+      cursor: grabbing;
+    }
   }
 
   &.black-tile{
