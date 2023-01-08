@@ -28,9 +28,10 @@ describe('<Tile />', () => {
   describe('about "image" prop', () => {
     describe('when it receives a image prop', () => {
       it('shows the image', () => {
-        const { container } = mount(1, 'assets/images/pawn_b.png')
+        const image = 'assets/images/pawn_b.png'
+        const { container } = mount(1, image)
 
-        expect(container.querySelector('img[src="assets/images/pawn_b.png"]')).toBeInTheDocument()
+        expect(container.querySelector(`div[style="background-image: url(${image});"]`)).toBeInTheDocument()
       })
     })
 
@@ -38,7 +39,7 @@ describe('<Tile />', () => {
       it('does not shows the image', () => {
         const { container } = mount()
 
-        expect(container.querySelector('img')).not.toBeInTheDocument()
+        expect(container.querySelector('.piece')).not.toBeInTheDocument()
       })
     })
   })
