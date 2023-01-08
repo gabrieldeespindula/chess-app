@@ -1,8 +1,9 @@
+import { Chessboard } from "./components/Chessboard"
+import './App.scss'
+
 function App() {
   return (
-    <h1>
-      Hello World!
-    </h1>
+    <Chessboard />
   )
 }
 
