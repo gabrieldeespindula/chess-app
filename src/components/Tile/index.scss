@@ -1,15 +1,15 @@
 .tile{
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   display: grid;
   place-content: center;
 
   .piece{
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 80px;
+    background-size: 70px;
 
     &:hover{
       cursor: grab;
