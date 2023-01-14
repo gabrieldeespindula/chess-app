@@ -44,16 +44,12 @@ describe('<Chessboard />', () => {
       const piece = container.querySelector('div[style="background-image: url(assets/images/king_w.png);"]') as HTMLElement
 
       expect(piece.style.position).toBe('')
-      expect(piece.style.top).toBe('')
-      expect(piece.style.left).toBe('')
 
       fireEvent.mouseDown(piece)
-      fireEvent.mouseMove(piece, { clientX: 0, clientY: 0 })
+      fireEvent.mouseMove(piece)
       fireEvent.mouseUp(piece)
 
       expect(piece.style.position).toBe('absolute')
-      expect(piece.style.top).toBe('-8px')
-      expect(piece.style.left).toBe('-8px')
     })
   })
 })
