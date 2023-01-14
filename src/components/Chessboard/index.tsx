@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { Tile } from '../Tile'
 import './index.scss'
 
@@ -31,39 +32,50 @@ for (let i = 0; i <= 1; i++) {
   pieces.push({ image: `assets/images/king_${color}.png`, x: 4, y })
 }
 
-let activePiece: HTMLElement | null = null
-
-function grabPiece(e: React.MouseEvent) {
-  const element = e.target as HTMLElement
-  if (element.classList.contains('piece')) {
-    const x = e.clientX - 41
-    const y = e.clientY - 41
-    element.style.position = "absolute"
-    element.style.left = `${x}px`
-    element.style.top = `${y}px`
-
-    activePiece = element
-  }
-}
-
-function movePiece(e: React.MouseEvent) {
-  if (activePiece) {
-    const x = e.clientX - 41
-    const y = e.clientY - 41
-    activePiece.style.position = "absolute"
-    activePiece.style.left = `${x}px`
-    activePiece.style.top = `${y}px`
-  }
-}
-
-function dropPiece(e: React.MouseEvent) {
-  if (activePiece) {
-    activePiece = null
-  }
-}
-
 function Chessboard(): JSX.Element {
+  const chessboardRef = useRef<HTMLDivElement>(null)
   const board: JSX.Element[] = []
+  let activePiece: HTMLElement | null = null
+
+
+  function grabPiece(e: React.MouseEvent) {
+    const element = e.target as HTMLElement
+    if (element.classList.contains('piece')) {
+      const x = e.clientX - 41
+      const y = e.clientY - 41
+      element.style.position = "absolute"
+      element.style.left = `${x}px`
+      element.style.top = `${y}px`
+
+      activePiece = element
+    }
+  }
+
+  function movePiece(e: React.MouseEvent) {
+    const chessboard = chessboardRef.current
+    if (activePiece && chessboard) {
+      const minX = chessboard.offsetLeft - 8
+      const minY = chessboard.offsetTop - 8
+      const maxX = chessboard.offsetLeft + chessboard.offsetWidth - 72
+      const maxY = chessboard.offsetTop + chessboard.offsetHeight - 70
+      const x = e.clientX - 41
+      const y = e.clientY - 41
+      activePiece.style.position = "absolute"
+
+      const xValue = x < minX ? minX : x > maxX ? maxX : x
+      activePiece.style.left = `${xValue}px`
+
+      const yValue = y < minY ? minY : y > maxY ? maxY : y
+      activePiece.style.top = `${yValue}px`
+    }
+  }
+
+  function dropPiece(e: React.MouseEvent) {
+    if (activePiece) {
+      activePiece = null
+    }
+  }
+
 
   for (let j = verticalAxis.length - 1; j >= 0; j--) {
     for (let i = 0; i < horizontalAxis.length; i++) {
@@ -77,7 +89,7 @@ function Chessboard(): JSX.Element {
   return (
     <>
       <h1 className='t-center'>Chessboard</h1>
-      <div className="chessboard" onMouseMove={movePiece} onMouseDown={grabPiece} onMouseUp={dropPiece}>
+      <div onMouseMove={movePiece} onMouseDown={grabPiece} onMouseUp={dropPiece} id="chessboard" ref={chessboardRef}>
         {board}
       </div>
     </>
