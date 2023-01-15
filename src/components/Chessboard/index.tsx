@@ -1,15 +1,15 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { HORIZONTAL_AXIS, VERTICAL_AXIS } from '../../constants/axis'
 import { INITIAL_BOARD_STATE } from '../../constants/initialBoardState'
 import { Piece } from '../../entities/piece'
+import { PiecePosition } from '../../entities/piecePosition'
 import { Referee } from '../../referee/Referee'
 import { Tile } from '../Tile'
 import './index.scss'
 
 function Chessboard(): JSX.Element {
   const [pieces, setPieces] = useState<Piece[]>(INITIAL_BOARD_STATE);
-  const [gridX, setGridX] = useState(0);
-  const [gridY, setGridY] = useState(0);
+  const [grabPosition, setGrabPosition] = useState<PiecePosition>({ x: -1, y: -1 });
   const [activePiece, setActivePiece] = useState<HTMLElement | null>(null);
   const chessboardRef = useRef<HTMLDivElement>(null)
   const board: JSX.Element[] = []
@@ -19,8 +19,10 @@ function Chessboard(): JSX.Element {
     const element = e.target as HTMLElement
     const chessboard = chessboardRef.current
     if (element.classList.contains('piece') && chessboard) {
-      setGridX(Math.floor((e.clientX - chessboard.offsetLeft) / 80))
-      setGridY(Math.abs(Math.ceil((e.clientY - chessboard.offsetTop - 640) / 80)))
+      setGrabPosition({
+        x: Math.floor((e.clientX - chessboard.offsetLeft) / 80),
+        y: Math.abs(Math.ceil((e.clientY - chessboard.offsetTop - 640) / 80))
+      })
       const x = e.clientX - 41
       const y = e.clientY - 41
       element.style.position = "absolute"
@@ -56,18 +58,17 @@ function Chessboard(): JSX.Element {
       const x = Math.floor((e.clientX - chessboard.offsetLeft) / 80)
       const y = Math.abs(Math.ceil((e.clientY - chessboard.offsetTop - 640) / 80))
 
-      const currentPiece = pieces.find((p) => p.x === gridX && p.y === gridY)
+      const currentPiece = pieces.find((piece) => piece.position.x === grabPosition.x && piece.position.y === grabPosition.y)
 
       if (currentPiece) {
-        const validMove = referee.isValidMove(gridX, gridY, x, y, currentPiece.type, currentPiece.team, pieces)
+        const validMove = referee.isValidMove(grabPosition, { x, y }, currentPiece.type, currentPiece.team, pieces)
 
         if (validMove) {
           const updatePieces = pieces.reduce((results, piece) => {
-            if(piece === currentPiece){
-              piece.x = x
-              piece.y = y
+            if (piece === currentPiece) {
+              piece.position = { x, y }
               results.push(piece)
-            }else if(!(piece.x === x && piece.y === y)){
+            } else if (!(piece.position.x === x && piece.position.y === y)) {
               results.push(piece)
             }
 
@@ -89,7 +90,7 @@ function Chessboard(): JSX.Element {
   for (let j = VERTICAL_AXIS.length - 1; j >= 0; j--) {
     for (let i = 0; i < HORIZONTAL_AXIS.length; i++) {
       const number = j + i + 2
-      const image = pieces.find((p) => p.x === i && p.y === j)?.image
+      const image = pieces.find((piece) => piece.position.x === i && piece.position.y === j)?.image
 
       board.push(<Tile key={`${i}${j}`} number={number} image={image} />)
     }

@@ -8,12 +8,12 @@ describe('Referee', () => {
 
   describe('isValidMove', () => {
     describe('when the piece is a pawn', () => {
-      function callWhite(x: number, y: number, initialBoardState = INITIAL_BOARD_STATE, py = 1){
-        return referee.isValidMove(0, py, x, y, PieceType.PAWN, Team.WHITE, initialBoardState)
+      function callWhite(x: number, y: number, initialBoardState = INITIAL_BOARD_STATE, py = 1) {
+        return referee.isValidMove({ x: 0, y: py }, { x, y }, PieceType.PAWN, Team.WHITE, initialBoardState)
       }
 
-      function callBlack(x: number, y: number, initialBoardState = INITIAL_BOARD_STATE, py = 6){
-        return referee.isValidMove(0, py, x, y, PieceType.PAWN, Team.BLACK, initialBoardState)
+      function callBlack(x: number, y: number, initialBoardState = INITIAL_BOARD_STATE, py = 6) {
+        return referee.isValidMove({ x: 0, y: py }, { x, y }, PieceType.PAWN, Team.BLACK, initialBoardState)
       }
 
       describe('when the pawn moves one square forward', () => {
@@ -25,9 +25,9 @@ describe('Referee', () => {
         })
         describe('when there is a piece one square forward', () => {
           it('returns false', () => {
-            const boardStateWhite = [...INITIAL_BOARD_STATE, { image: '' , x: 0, y: 2, type: PieceType.PAWN, team: Team.BLACK}]
+            const boardStateWhite = [...INITIAL_BOARD_STATE, { image: '', position: { x: 0, y: 2 }, type: PieceType.PAWN, team: Team.BLACK }]
             expect(callWhite(0, 2, boardStateWhite)).toBe(false)
-            const boardStateBlack = [...INITIAL_BOARD_STATE, { image: '' , x: 0, y: 5, type: PieceType.PAWN, team: Team.WHITE}]
+            const boardStateBlack = [...INITIAL_BOARD_STATE, { image: '', position: { x: 0, y: 5 }, type: PieceType.PAWN, team: Team.WHITE }]
             expect(callBlack(0, 5, boardStateBlack)).toBe(false)
           })
         })
@@ -43,9 +43,9 @@ describe('Referee', () => {
           })
           describe('when there is a piece two square ahead', () => {
             it('returns false', () => {
-              const boardStateWhite = [...INITIAL_BOARD_STATE, { image: '' , x: 0, y: 3, type: PieceType.PAWN, team: Team.BLACK}]
+              const boardStateWhite = [...INITIAL_BOARD_STATE, { image: '', position: { x: 0, y: 3 }, type: PieceType.PAWN, team: Team.BLACK }]
               expect(callWhite(0, 3, boardStateWhite)).toBe(false)
-              const boardStateBlack = [...INITIAL_BOARD_STATE, { image: '' , x: 0, y: 4, type: PieceType.PAWN, team: Team.WHITE}]
+              const boardStateBlack = [...INITIAL_BOARD_STATE, { image: '', position: { x: 0, y: 4 }, type: PieceType.PAWN, team: Team.WHITE }]
               expect(callBlack(0, 4, boardStateBlack)).toBe(false)
             })
           })

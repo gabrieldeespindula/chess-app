@@ -11,17 +11,17 @@ for (let i = 0; i <= 1; i++) {
 
   for (let pawn_i = 0; pawn_i < 8; pawn_i++) {
     const y = i === 1 ? 6 : 1
-    INITIAL_BOARD_STATE.push({ image: `assets/images/pawn_${color}.png`, x: pawn_i, y, type: PieceType.PAWN, team })
+    INITIAL_BOARD_STATE.push({ image: `assets/images/pawn_${color}.png`, position: { x: pawn_i, y }, type: PieceType.PAWN, team })
   }
 
-  INITIAL_BOARD_STATE.push({ image: `assets/images/rook_${color}.png`, x: 0, y, type: PieceType.ROOK, team })
-  INITIAL_BOARD_STATE.push({ image: `assets/images/rook_${color}.png`, x: 7, y, type: PieceType.ROOK, team })
-  INITIAL_BOARD_STATE.push({ image: `assets/images/knight_${color}.png`, x: 1, y, type: PieceType.KNIGHT, team })
-  INITIAL_BOARD_STATE.push({ image: `assets/images/knight_${color}.png`, x: 6, y, type: PieceType.KNIGHT, team })
-  INITIAL_BOARD_STATE.push({ image: `assets/images/bishop_${color}.png`, x: 2, y, type: PieceType.BISHOP, team })
-  INITIAL_BOARD_STATE.push({ image: `assets/images/bishop_${color}.png`, x: 5, y, type: PieceType.BISHOP, team })
-  INITIAL_BOARD_STATE.push({ image: `assets/images/queen_${color}.png`, x: 3, y, type: PieceType.QUEEN, team })
-  INITIAL_BOARD_STATE.push({ image: `assets/images/king_${color}.png`, x: 4, y, type: PieceType.KING, team })
+  INITIAL_BOARD_STATE.push({ image: `assets/images/rook_${color}.png`, position: { x: 0, y }, type: PieceType.ROOK, team })
+  INITIAL_BOARD_STATE.push({ image: `assets/images/rook_${color}.png`, position: { x: 7, y }, type: PieceType.ROOK, team })
+  INITIAL_BOARD_STATE.push({ image: `assets/images/knight_${color}.png`, position: { x: 1, y }, type: PieceType.KNIGHT, team })
+  INITIAL_BOARD_STATE.push({ image: `assets/images/knight_${color}.png`, position: { x: 6, y }, type: PieceType.KNIGHT, team })
+  INITIAL_BOARD_STATE.push({ image: `assets/images/bishop_${color}.png`, position: { x: 2, y }, type: PieceType.BISHOP, team })
+  INITIAL_BOARD_STATE.push({ image: `assets/images/bishop_${color}.png`, position: { x: 5, y }, type: PieceType.BISHOP, team })
+  INITIAL_BOARD_STATE.push({ image: `assets/images/queen_${color}.png`, position: { x: 3, y }, type: PieceType.QUEEN, team })
+  INITIAL_BOARD_STATE.push({ image: `assets/images/king_${color}.png`, position: { x: 4, y }, type: PieceType.KING, team })
 }
 
 export { INITIAL_BOARD_STATE }
