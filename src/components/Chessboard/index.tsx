@@ -4,17 +4,16 @@ import { INITIAL_BOARD_STATE } from '../../constants/initialBoardState'
 import { Piece } from '../../entities/piece'
 import { PiecePosition } from '../../entities/piecePosition'
 import { comparePositions } from '../../helpers/comparePositions'
-import { Rule } from '../../rule/Rule'
+import { RuleProxy } from '../../rules/RuleProxy'
 import { Tile } from '../Tile'
 import './index.scss'
 
 function Chessboard(): JSX.Element {
-  const [pieces, setPieces] = useState<Piece[]>(INITIAL_BOARD_STATE);
-  const [grabPosition, setGrabPosition] = useState<PiecePosition>({ x: -1, y: -1 });
-  const [activePiece, setActivePiece] = useState<HTMLElement | null>(null);
+  const [pieces, setPieces] = useState<Piece[]>(INITIAL_BOARD_STATE)
+  const [grabPosition, setGrabPosition] = useState<PiecePosition>({ x: -1, y: -1 })
+  const [activePiece, setActivePiece] = useState<HTMLElement | null>(null)
   const chessboardRef = useRef<HTMLDivElement>(null)
   const board: JSX.Element[] = []
-  const rule = new Rule()
 
   function grabPiece(e: React.MouseEvent) {
     const element = e.target as HTMLElement
@@ -63,7 +62,7 @@ function Chessboard(): JSX.Element {
       const currentPiece = pieces.find((piece) => comparePositions(piece.position, grabPosition))
 
       if (currentPiece) {
-        const validMove = rule.isValidMove(grabPosition, { x, y }, currentPiece.type, currentPiece.team, pieces)
+        const validMove = RuleProxy.isValidMove(grabPosition, { x, y }, currentPiece.type, currentPiece.team, pieces)
 
         if (validMove) {
           const updatePieces = pieces.reduce((results, piece) => {
