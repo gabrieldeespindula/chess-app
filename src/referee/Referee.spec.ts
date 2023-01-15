@@ -1,3 +1,4 @@
+import { INITIAL_BOARD_STATE } from "../constant/initialBoardState"
 import { PieceType } from "../entities/pieceType"
 import { Team } from "../entities/team"
 import { Referee } from "./Referee"
@@ -10,7 +11,7 @@ describe('Referee', () => {
       describe('when the piece is white', () => {
         describe('when piece is in the start position', () => {
           function call(x: number, y: number){
-            return referee.isValidMove(0, 1, x, y, PieceType.PAWN, Team.WHITE)
+            return referee.isValidMove(0, 1, x, y, PieceType.PAWN, Team.WHITE, INITIAL_BOARD_STATE)
           }
           describe('when the pawn moves one square forward', () => {
             it('returns true', () => {
@@ -31,7 +32,7 @@ describe('Referee', () => {
         })
         describe('when piece is not in the start position', () => {
           function call(x: number, y: number){
-            return referee.isValidMove(0, 2, x, y, PieceType.PAWN, Team.WHITE)
+            return referee.isValidMove(0, 2, x, y, PieceType.PAWN, Team.WHITE, INITIAL_BOARD_STATE)
           }
           describe('when the pawn moves one square forward', () => {
             it('returns true', () => {
@@ -54,28 +55,7 @@ describe('Referee', () => {
       describe('when the piece is black', () => {
         describe('when piece is in the start position', () => {
           function call(x: number, y: number){
-            return referee.isValidMove(0, 7, x, y, PieceType.PAWN, Team.BLACK)
-          }
-          describe('when the pawn moves one square forward', () => {
-            it('returns true', () => {
-              expect(call(0, 6)).toBe(true)
-            })
-          })
-          describe('when the pawn moves two square forward', () => {
-            it('returns true', () => {
-              expect(call(0, 5)).toBe(true)
-            })
-          })
-          describe('When piece makes a not allowed move', () => {
-            it('returns false', () => {
-              expect(call(0, 4)).toBe(false)
-              expect(call(1, 5)).toBe(false)
-            })
-          })
-        })
-        describe('when piece is not in the start position', () => {
-          function call(x: number, y: number){
-            return referee.isValidMove(0, 6, x, y, PieceType.PAWN, Team.BLACK)
+            return referee.isValidMove(0, 6, x, y, PieceType.PAWN, Team.BLACK, INITIAL_BOARD_STATE)
           }
           describe('when the pawn moves one square forward', () => {
             it('returns true', () => {
@@ -83,14 +63,35 @@ describe('Referee', () => {
             })
           })
           describe('when the pawn moves two square forward', () => {
-            it('returns false', () => {
-              expect(call(0, 4)).toBe(false)
+            it('returns true', () => {
+              expect(call(0, 4)).toBe(true)
             })
           })
           describe('When piece makes a not allowed move', () => {
             it('returns false', () => {
               expect(call(0, 3)).toBe(false)
-              expect(call(1, 5)).toBe(false)
+              expect(call(1, 4)).toBe(false)
+            })
+          })
+        })
+        describe('when piece is not in the start position', () => {
+          function call(x: number, y: number){
+            return referee.isValidMove(0, 5, x, y, PieceType.PAWN, Team.BLACK, INITIAL_BOARD_STATE)
+          }
+          describe('when the pawn moves one square forward', () => {
+            it('returns true', () => {
+              expect(call(0, 4)).toBe(true)
+            })
+          })
+          describe('when the pawn moves two square forward', () => {
+            it('returns false', () => {
+              expect(call(0, 3)).toBe(false)
+            })
+          })
+          describe('When piece makes a not allowed move', () => {
+            it('returns false', () => {
+              expect(call(0, 2)).toBe(false)
+              expect(call(1, 4)).toBe(false)
             })
           })
         })
