@@ -1,14 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
-import { INITIAL_BOARD_STATE } from '../../constant/initialBoardState'
+import { HORIZONTAL_AXIS, VERTICAL_AXIS } from '../../constants/axis'
+import { INITIAL_BOARD_STATE } from '../../constants/initialBoardState'
 import { Piece } from '../../entities/piece'
-import { PieceType } from '../../entities/pieceType'
-import { Team } from '../../entities/team'
 import { Referee } from '../../referee/Referee'
 import { Tile } from '../Tile'
 import './index.scss'
-
-const verticalAxis = ['1', '2', '3', '4', '5', '6', '7', '8']
-const horizontalAxis = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 
 function Chessboard(): JSX.Element {
   const [pieces, setPieces] = useState<Piece[]>(INITIAL_BOARD_STATE);
@@ -90,8 +86,8 @@ function Chessboard(): JSX.Element {
   }
 
 
-  for (let j = verticalAxis.length - 1; j >= 0; j--) {
-    for (let i = 0; i < horizontalAxis.length; i++) {
+  for (let j = VERTICAL_AXIS.length - 1; j >= 0; j--) {
+    for (let i = 0; i < HORIZONTAL_AXIS.length; i++) {
       const number = j + i + 2
       const image = pieces.find((p) => p.x === i && p.y === j)?.image
 

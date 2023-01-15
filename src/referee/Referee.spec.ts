@@ -1,4 +1,4 @@
-import { INITIAL_BOARD_STATE } from "../constant/initialBoardState"
+import { INITIAL_BOARD_STATE } from "../constants/initialBoardState"
 import { PieceType } from "../entities/pieceType"
 import { Team } from "../entities/team"
 import { Referee } from "./Referee"
