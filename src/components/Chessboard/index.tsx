@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { INITIAL_BOARD_STATE } from '../../constant/initialBoardState'
 import { Piece } from '../../entities/piece'
 import { PieceType } from '../../entities/pieceType'
 import { Team } from '../../entities/team'
@@ -9,31 +10,8 @@ import './index.scss'
 const verticalAxis = ['1', '2', '3', '4', '5', '6', '7', '8']
 const horizontalAxis = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 
-const initialBoardState: Piece[] = []
-
-for (let i = 0; i <= 1; i++) {
-  const y = i === 1 ? 7 : 0
-  const color = i === 1 ? 'b' : 'w'
-  const team = i === 1 ? Team.BLACK : Team.WHITE
-
-  for (let pawn_i = 0; pawn_i < 8; pawn_i++) {
-    const y = i === 1 ? 6 : 1
-    initialBoardState.push({ image: `assets/images/pawn_${color}.png`, x: pawn_i, y, type: PieceType.PAWN, team })
-  }
-
-  initialBoardState.push({ image: `assets/images/rook_${color}.png`, x: 0, y, type: PieceType.ROOK, team })
-  initialBoardState.push({ image: `assets/images/rook_${color}.png`, x: 7, y, type: PieceType.ROOK, team })
-  initialBoardState.push({ image: `assets/images/knight_${color}.png`, x: 1, y, type: PieceType.KNIGHT, team })
-  initialBoardState.push({ image: `assets/images/knight_${color}.png`, x: 6, y, type: PieceType.KNIGHT, team })
-  initialBoardState.push({ image: `assets/images/bishop_${color}.png`, x: 2, y, type: PieceType.BISHOP, team })
-  initialBoardState.push({ image: `assets/images/bishop_${color}.png`, x: 5, y, type: PieceType.BISHOP, team })
-  initialBoardState.push({ image: `assets/images/queen_${color}.png`, x: 3, y, type: PieceType.QUEEN, team })
-  initialBoardState.push({ image: `assets/images/king_${color}.png`, x: 4, y, type: PieceType.KING, team })
-}
-
-
 function Chessboard(): JSX.Element {
-  const [pieces, setPieces] = useState<Piece[]>(initialBoardState);
+  const [pieces, setPieces] = useState<Piece[]>(INITIAL_BOARD_STATE);
   const [gridX, setGridX] = useState(0);
   const [gridY, setGridY] = useState(0);
   const [activePiece, setActivePiece] = useState<HTMLElement | null>(null);
@@ -86,7 +64,7 @@ function Chessboard(): JSX.Element {
       setPieces((value) => {
         const pieces = value.map((p) => {
           if(p.x === gridX && p.y === gridY) {
-            const isValidMove = referee.isValidMove(gridX, gridY, x, y, p.type, p.team)
+            const isValidMove = referee.isValidMove(gridX, gridY, x, y, p.type, p.team, value)
             if(isValidMove){
               p.x = x
               p.y = y
