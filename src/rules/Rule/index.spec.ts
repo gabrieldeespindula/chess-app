@@ -1,20 +1,20 @@
-import { INITIAL_BOARD_STATE } from "../constants/initialBoardState"
-import { PiecePosition } from "../entities/piecePosition"
-import { PieceType } from "../entities/pieceType"
-import { Team } from "../entities/team"
-import { Referee } from "./Referee"
+import { INITIAL_BOARD_STATE } from "../../constants/initialBoardState"
+import { PiecePosition } from "../../entities/piecePosition"
+import { PieceType } from "../../entities/pieceType"
+import { Team } from "../../entities/team"
+import { Rule } from "."
 
-describe('Referee', () => {
-  const referee = new Referee()
+describe('Rule', () => {
+  const rule = new Rule()
 
   describe('isValidMove', () => {
     describe('when the piece is a pawn', () => {
       function callWhite(position: PiecePosition, initialBoardState = INITIAL_BOARD_STATE, py = 1) {
-        return referee.isValidMove({ x: 0, y: py }, position, PieceType.PAWN, Team.WHITE, initialBoardState)
+        return rule.isValidMove({ x: 0, y: py }, position, PieceType.PAWN, Team.WHITE, initialBoardState)
       }
 
       function callBlack(position: PiecePosition, initialBoardState = INITIAL_BOARD_STATE, py = 6) {
-        return referee.isValidMove({ x: 0, y: py }, position, PieceType.PAWN, Team.BLACK, initialBoardState)
+        return rule.isValidMove({ x: 0, y: py }, position, PieceType.PAWN, Team.BLACK, initialBoardState)
       }
 
       describe('when the pawn moves one square forward', () => {

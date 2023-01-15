@@ -4,7 +4,7 @@ import { INITIAL_BOARD_STATE } from '../../constants/initialBoardState'
 import { Piece } from '../../entities/piece'
 import { PiecePosition } from '../../entities/piecePosition'
 import { comparePositions } from '../../helpers/comparePositions'
-import { Referee } from '../../referee/Referee'
+import { Rule } from '../../rule/Rule'
 import { Tile } from '../Tile'
 import './index.scss'
 
@@ -14,7 +14,7 @@ function Chessboard(): JSX.Element {
   const [activePiece, setActivePiece] = useState<HTMLElement | null>(null);
   const chessboardRef = useRef<HTMLDivElement>(null)
   const board: JSX.Element[] = []
-  const referee = new Referee()
+  const rule = new Rule()
 
   function grabPiece(e: React.MouseEvent) {
     const element = e.target as HTMLElement
@@ -63,7 +63,7 @@ function Chessboard(): JSX.Element {
       const currentPiece = pieces.find((piece) => comparePositions(piece.position, grabPosition))
 
       if (currentPiece) {
-        const validMove = referee.isValidMove(grabPosition, { x, y }, currentPiece.type, currentPiece.team, pieces)
+        const validMove = rule.isValidMove(grabPosition, { x, y }, currentPiece.type, currentPiece.team, pieces)
 
         if (validMove) {
           const updatePieces = pieces.reduce((results, piece) => {

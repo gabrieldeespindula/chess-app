@@ -1,10 +1,10 @@
-import { Piece } from "../entities/piece"
-import { PiecePosition } from "../entities/piecePosition"
-import { PieceType } from "../entities/pieceType"
-import { Team } from "../entities/team"
-import { comparePositions } from "../helpers/comparePositions"
+import { Piece } from "../../entities/piece"
+import { PiecePosition } from "../../entities/piecePosition"
+import { PieceType } from "../../entities/pieceType"
+import { Team } from "../../entities/team"
+import { comparePositions } from "../../helpers/comparePositions"
 
-class Referee {
+class Rule {
   tileIsOccupied(position: PiecePosition, boardState: Piece[]): Boolean {
     return boardState.find((piece) => comparePositions(piece.position, position)) !== undefined
   }
@@ -39,4 +39,4 @@ class Referee {
   }
 }
 
-export { Referee }
+export { Rule }
