@@ -18,15 +18,16 @@ class Referee {
     team: Team,
     boardState: Piece[]
   ): Boolean{
+
     if(type === PieceType.PAWN){
-      if(team === Team.WHITE){
-        if(px === x && (y - py === 1 || (y - py === 2 && py === 1))){
-          return !this.tileIsOccupied(x, y, boardState)
+      const startRow = team === Team.WHITE ? 1 : 6
+      const direction = team === Team.WHITE ? 1 : -1
+
+      if(px === x && (y - py === direction || (y - py === direction * 2 && py === startRow))){
+        if(y - py === direction * 2){
+          return !this.tileIsOccupied(x, y, boardState) && !this.tileIsOccupied(x, y - direction, boardState)
         }
-      }else{
-        if(px === x && (y - py === -1 || (y - py === -2 && py === 6))){
-          return !this.tileIsOccupied(x, y, boardState)
-        }
+        return !this.tileIsOccupied(x, y, boardState)
       }
     }
 
