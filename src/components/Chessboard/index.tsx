@@ -3,6 +3,7 @@ import { HORIZONTAL_AXIS, VERTICAL_AXIS } from '../../constants/axis'
 import { INITIAL_BOARD_STATE } from '../../constants/initialBoardState'
 import { Piece } from '../../entities/piece'
 import { PiecePosition } from '../../entities/piecePosition'
+import { comparePositions } from '../../helpers/comparePositions'
 import { Referee } from '../../referee/Referee'
 import { Tile } from '../Tile'
 import './index.scss'
@@ -58,7 +59,8 @@ function Chessboard(): JSX.Element {
       const x = Math.floor((e.clientX - chessboard.offsetLeft) / 80)
       const y = Math.abs(Math.ceil((e.clientY - chessboard.offsetTop - 640) / 80))
 
-      const currentPiece = pieces.find((piece) => piece.position.x === grabPosition.x && piece.position.y === grabPosition.y)
+
+      const currentPiece = pieces.find((piece) => comparePositions(piece.position, grabPosition))
 
       if (currentPiece) {
         const validMove = referee.isValidMove(grabPosition, { x, y }, currentPiece.type, currentPiece.team, pieces)
@@ -68,7 +70,7 @@ function Chessboard(): JSX.Element {
             if (piece === currentPiece) {
               piece.position = { x, y }
               results.push(piece)
-            } else if (!(piece.position.x === x && piece.position.y === y)) {
+            } else if (!(comparePositions(piece.position, {x, y}))) {
               results.push(piece)
             }
 
@@ -87,12 +89,12 @@ function Chessboard(): JSX.Element {
   }
 
 
-  for (let j = VERTICAL_AXIS.length - 1; j >= 0; j--) {
-    for (let i = 0; i < HORIZONTAL_AXIS.length; i++) {
-      const number = j + i + 2
-      const image = pieces.find((piece) => piece.position.x === i && piece.position.y === j)?.image
+  for (let y = VERTICAL_AXIS.length - 1; y >= 0; y--) {
+    for (let x = 0; x < HORIZONTAL_AXIS.length; x++) {
+      const number = x + y + 2
+      const image = pieces.find((piece) => comparePositions(piece.position, {x, y}))?.image
 
-      board.push(<Tile key={`${i}${j}`} number={number} image={image} />)
+      board.push(<Tile key={`${x}${y}`} number={number} image={image} />)
     }
   }
 

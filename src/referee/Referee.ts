@@ -2,14 +2,15 @@ import { Piece } from "../entities/piece"
 import { PiecePosition } from "../entities/piecePosition"
 import { PieceType } from "../entities/pieceType"
 import { Team } from "../entities/team"
+import { comparePositions } from "../helpers/comparePositions"
 
 class Referee {
   tileIsOccupied(position: PiecePosition, boardState: Piece[]): Boolean{
-    return boardState.find((piece) => piece.position.x === position.x && piece.position.y === position.y) !== undefined
+    return boardState.find((piece) => (piece.position, position)) !== undefined
   }
 
   tileIsOccupiedByEnemy(position: PiecePosition, boardState: Piece[], team: Team): Boolean{
-    return boardState.find((piece) => piece.position.x === position.x && piece.position.y === position.y && piece.team !== team) !== undefined
+    return boardState.find((piece) => comparePositions(piece.position, position)) !== undefined
   }
 
   isValidMove(
