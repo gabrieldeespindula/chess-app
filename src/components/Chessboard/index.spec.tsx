@@ -46,10 +46,13 @@ describe('<Chessboard />', () => {
       expect(piece.style.position).toBe('')
 
       fireEvent.mouseDown(piece)
-      fireEvent.mouseMove(piece)
-      fireEvent.mouseUp(piece)
-
       expect(piece.style.position).toBe('absolute')
+
+      fireEvent.mouseMove(piece)
+      expect(piece.style.position).toBe('absolute')
+
+      fireEvent.mouseUp(piece)
+      expect(piece.style.position).toBe('relative')
     })
   })
 })
