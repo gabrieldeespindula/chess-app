@@ -8,11 +8,11 @@ describe('PawnRule', () => {
   describe('isValidMove', () => {
     describe('when the piece is a pawn', () => {
       function callWhite(position: PiecePosition, initialBoardState = INITIAL_BOARD_STATE, py = 1) {
-        return PawnRule.isValidMove({ x: 0, y: py }, position, PieceType.PAWN, Team.WHITE, initialBoardState)
+        return PawnRule.isValidMove({ x: 0, y: py }, position, Team.WHITE, initialBoardState)
       }
 
       function callBlack(position: PiecePosition, initialBoardState = INITIAL_BOARD_STATE, py = 6) {
-        return PawnRule.isValidMove({ x: 0, y: py }, position, PieceType.PAWN, Team.BLACK, initialBoardState)
+        return PawnRule.isValidMove({ x: 0, y: py }, position, Team.BLACK, initialBoardState)
       }
 
       describe('when the pawn moves one square forward', () => {
@@ -24,9 +24,9 @@ describe('PawnRule', () => {
         })
         describe('when there is a piece one square forward', () => {
           it('returns false', () => {
-            const boardStateWhite = [...INITIAL_BOARD_STATE, { image: '', position: { x: 0, y: 2 }, type: PieceType.PAWN, team: Team.BLACK }]
+            const boardStateWhite = [...INITIAL_BOARD_STATE, { image: '', position: { x: 0, y: 2 }, type, team: Team.BLACK }]
             expect(callWhite({ x: 0, y: 2 }, boardStateWhite)).toBe(false)
-            const boardStateBlack = [...INITIAL_BOARD_STATE, { image: '', position: { x: 0, y: 5 }, type: PieceType.PAWN, team: Team.WHITE }]
+            const boardStateBlack = [...INITIAL_BOARD_STATE, { image: '', position: { x: 0, y: 5 }, type, team: Team.WHITE }]
             expect(callBlack({ x: 0, y: 5 }, boardStateBlack)).toBe(false)
           })
         })
@@ -42,9 +42,9 @@ describe('PawnRule', () => {
           })
           describe('when there is a piece two square ahead', () => {
             it('returns false', () => {
-              const boardStateWhite = [...INITIAL_BOARD_STATE, { image: '', position: { x: 0, y: 3 }, type: PieceType.PAWN, team: Team.BLACK }]
+              const boardStateWhite = [...INITIAL_BOARD_STATE, { image: '', position: { x: 0, y: 3 }, type, team: Team.BLACK }]
               expect(callWhite({ x: 0, y: 3 }, boardStateWhite)).toBe(false)
-              const boardStateBlack = [...INITIAL_BOARD_STATE, { image: '', position: { x: 0, y: 4 }, type: PieceType.PAWN, team: Team.WHITE }]
+              const boardStateBlack = [...INITIAL_BOARD_STATE, { image: '', position: { x: 0, y: 4 }, type, team: Team.WHITE }]
               expect(callBlack({ x: 0, y: 4 }, boardStateBlack)).toBe(false)
             })
           })
@@ -60,9 +60,9 @@ describe('PawnRule', () => {
       describe('when the pawn moves one square diagonally', () => {
         describe('when there is a piece one square diagonally', () => {
           it('returns true', () => {
-            const boardStateWhite = [...INITIAL_BOARD_STATE, { image: '', position: { x: 1, y: 2 }, type: PieceType.PAWN, team: Team.BLACK }]
+            const boardStateWhite = [...INITIAL_BOARD_STATE, { image: '', position: { x: 1, y: 2 }, type, team: Team.BLACK }]
             expect(callWhite({ x: 1, y: 2 }, boardStateWhite)).toBe(true)
-            const boardStateBlack = [...INITIAL_BOARD_STATE, { image: '', position: { x: 1, y: 5 }, type: PieceType.PAWN, team: Team.WHITE }]
+            const boardStateBlack = [...INITIAL_BOARD_STATE, { image: '', position: { x: 1, y: 5 }, type, team: Team.WHITE }]
             expect(callBlack({ x: 1, y: 5 }, boardStateBlack)).toBe(true)
           })
         })
