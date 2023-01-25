@@ -11,6 +11,10 @@ class Rule {
   static tileIsOccupiedByEnemy(position: PiecePosition, boardState: Piece[], team: Team): Boolean {
     return boardState.find((piece) => comparePositions(piece.position, position) && piece.team !== team) !== undefined
   }
+
+  static tileIsOccupiedByFriend(position: PiecePosition, boardState: Piece[], team: Team): Boolean {
+    return boardState.find((piece) => comparePositions(piece.position, position) && piece.team === team) !== undefined
+  }
 }
 
 export { Rule }
