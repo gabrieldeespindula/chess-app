@@ -8,11 +8,11 @@ describe('PawnRule', () => {
   describe('isValidMove', () => {
     describe('when the piece is a pawn', () => {
       function callWhite(position: PiecePosition, initialBoardState = INITIAL_BOARD_STATE, py = 1) {
-        return PawnRule.isValidMove({ x: 0, y: py }, position, PieceType.PAWN, Team.WHITE, initialBoardState)
+        return PawnRule.isValidMove({ x: 0, y: py }, position, Team.WHITE, initialBoardState)
       }
 
       function callBlack(position: PiecePosition, initialBoardState = INITIAL_BOARD_STATE, py = 6) {
-        return PawnRule.isValidMove({ x: 0, y: py }, position, PieceType.PAWN, Team.BLACK, initialBoardState)
+        return PawnRule.isValidMove({ x: 0, y: py }, position, Team.BLACK, initialBoardState)
       }
 
       describe('when the pawn moves one square forward', () => {
