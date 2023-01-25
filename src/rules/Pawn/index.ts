@@ -1,6 +1,5 @@
 import { Piece } from "../../entities/piece"
 import { PiecePosition } from "../../entities/piecePosition"
-import { PieceType } from "../../entities/pieceType"
 import { Team } from "../../entities/team"
 import { Rule } from "../Rule"
 
