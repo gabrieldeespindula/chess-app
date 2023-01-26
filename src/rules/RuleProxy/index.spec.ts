@@ -1,6 +1,7 @@
 import { RuleProxy } from "."
 import { PieceType } from "../../entities/pieceType"
 import { Team } from "../../entities/team"
+import { BishopRule } from "../Bishop"
 import { KnightRule } from "../Knight"
 import { PawnRule } from "../Pawn"
 
@@ -19,6 +20,14 @@ describe('RuleProxy', () => {
         const knightRuleIsValidMove = jest.spyOn(KnightRule, 'isValidMove')
         RuleProxy.isValidMove({ x: 0, y: 0 }, { x: 0, y: 0 }, PieceType.KNIGHT, Team.WHITE, [])
         expect(knightRuleIsValidMove).toHaveBeenCalled()
+      })
+    })
+
+    describe('when the piece is a bishop', () => {
+      it('calls the bishop rule', () => {
+        const bishopRuleIsValidMove = jest.spyOn(BishopRule, 'isValidMove')
+        RuleProxy.isValidMove({ x: 0, y: 0 }, { x: 0, y: 0 }, PieceType.BISHOP, Team.WHITE, [])
+        expect(bishopRuleIsValidMove).toHaveBeenCalled()
       })
     })
 
