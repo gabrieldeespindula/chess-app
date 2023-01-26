@@ -4,6 +4,7 @@ import { PieceType } from "../../entities/pieceType"
 import { Team } from "../../entities/team"
 import { KnightRule } from "../Knight"
 import { PawnRule } from "../Pawn"
+import { BishopRule } from "../Bishop"
 
 class RuleProxy {
   static isValidMove(
@@ -18,6 +19,8 @@ class RuleProxy {
       return PawnRule.isValidMove(initialPosition, finalPosition, team, boardState)
     } else if (type === PieceType.KNIGHT) {
       return KnightRule.isValidMove(initialPosition, finalPosition, team, boardState)
+    } else if (type === PieceType.BISHOP) {
+      return BishopRule.isValidMove(initialPosition, finalPosition, team, boardState)
     }
 
     return false
