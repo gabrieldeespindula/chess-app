@@ -4,6 +4,7 @@ import { Team } from "../../entities/team"
 import { BishopRule } from "../Bishop"
 import { KnightRule } from "../Knight"
 import { PawnRule } from "../Pawn"
+import { QueenRule } from "../Queen"
 import { RookRule } from "../Rook"
 
 describe('RuleProxy', () => {
@@ -37,6 +38,14 @@ describe('RuleProxy', () => {
         const rookRuleIsValidMove = jest.spyOn(RookRule, 'isValidMove')
         RuleProxy.isValidMove({ x: 0, y: 0 }, { x: 0, y: 0 }, PieceType.ROOK, Team.WHITE, [])
         expect(rookRuleIsValidMove).toHaveBeenCalled()
+      })
+    })
+
+    describe('when the piece is a queen', () => {
+      it('calls the queen rule', () => {
+        const queenRuleIsValidMove = jest.spyOn(QueenRule, 'isValidMove')
+        RuleProxy.isValidMove({ x: 0, y: 0 }, { x: 0, y: 0 }, PieceType.QUEEN, Team.WHITE, [])
+        expect(queenRuleIsValidMove).toHaveBeenCalled()
       })
     })
 
