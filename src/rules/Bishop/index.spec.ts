@@ -181,5 +181,14 @@ describe('BishopRule', () => {
         })
       })
     })
+
+    describe('when the part moves on the line', ()=> {
+      it('returns false', () => {
+        expect(call({ x: 6, y: 5 })).toBe(false)
+        expect(call({ x: 4, y: 5 })).toBe(false)
+        expect(call({ x: 5, y: 6 })).toBe(false)
+        expect(call({ x: 5, y: 4 })).toBe(false)
+      })
+    })
   })
 })
