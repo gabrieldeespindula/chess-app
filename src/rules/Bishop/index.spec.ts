@@ -96,7 +96,7 @@ describe('BishopRule', () => {
       })
     })
 
-    describe('when the piece moves diagonally down and right', () => {
+    describe('when the piece moves diagonally backward and right', () => {
       describe('when final tile is occupied by a friend', () => {
         it('returns false', () => {
           const initialBoardState = [
@@ -139,7 +139,7 @@ describe('BishopRule', () => {
       })
     })
 
-    describe('when the piece moves diagonally down and left', () => {
+    describe('when the piece moves diagonally backward and left', () => {
       describe('when final tile is occupied by a friend', () => {
         it('returns false', () => {
           const initialBoardState = [
@@ -182,7 +182,7 @@ describe('BishopRule', () => {
       })
     })
 
-    describe('when the part moves on the line', ()=> {
+    describe('when the part moves on the line', () => {
       it('returns false', () => {
         expect(call({ x: 6, y: 5 })).toBe(false)
         expect(call({ x: 4, y: 5 })).toBe(false)

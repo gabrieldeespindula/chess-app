@@ -53,7 +53,7 @@ describe('RookRule', () => {
       })
     })
 
-    describe('when the piece moves down', ()=> {
+    describe('when the piece moves backward', () => {
       describe('when final tile is occupied by a friend', () => {
         it('returns false', () => {
           const initialBoardState = [
@@ -96,7 +96,7 @@ describe('RookRule', () => {
       })
     })
 
-    describe('when the piece moves left', ()=> {
+    describe('when the piece moves left', () => {
       describe('when final tile is occupied by a friend', () => {
         it('returns false', () => {
           const initialBoardState = [
@@ -139,7 +139,7 @@ describe('RookRule', () => {
       })
     })
 
-    describe('when the piece moves right', ()=> {
+    describe('when the piece moves right', () => {
       describe('when final tile is occupied by a friend', () => {
         it('returns false', () => {
           const initialBoardState = [
@@ -182,7 +182,7 @@ describe('RookRule', () => {
       })
     })
 
-    describe('when the piece moves diagonally', ()=> {
+    describe('when the piece moves diagonally', () => {
       it('returns false', () => {
         expect(call({ x: 6, y: 6 })).toBe(false)
         expect(call({ x: 6, y: 4 })).toBe(false)

@@ -96,7 +96,7 @@ describe('QueenRule', () => {
       })
     })
 
-    describe('when the piece moves diagonally down and right', () => {
+    describe('when the piece moves diagonally backward and right', () => {
       describe('when final tile is occupied by a friend', () => {
         it('returns false', () => {
           const initialBoardState = [
@@ -139,7 +139,7 @@ describe('QueenRule', () => {
       })
     })
 
-    describe('when the piece moves diagonally down and left', () => {
+    describe('when the piece moves diagonally backward and left', () => {
       describe('when final tile is occupied by a friend', () => {
         it('returns false', () => {
           const initialBoardState = [
@@ -225,7 +225,7 @@ describe('QueenRule', () => {
       })
     })
 
-    describe('when the piece moves down', ()=> {
+    describe('when the piece moves backward', () => {
       describe('when final tile is occupied by a friend', () => {
         it('returns false', () => {
           const initialBoardState = [
@@ -268,7 +268,7 @@ describe('QueenRule', () => {
       })
     })
 
-    describe('when the piece moves left', ()=> {
+    describe('when the piece moves left', () => {
       describe('when final tile is occupied by a friend', () => {
         it('returns false', () => {
           const initialBoardState = [
@@ -311,7 +311,7 @@ describe('QueenRule', () => {
       })
     })
 
-    describe('when the piece moves right', ()=> {
+    describe('when the piece moves right', () => {
       describe('when final tile is occupied by a friend', () => {
         it('returns false', () => {
           const initialBoardState = [
