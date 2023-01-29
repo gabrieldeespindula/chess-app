@@ -7,6 +7,7 @@ import { PawnRule } from "../Pawn"
 import { BishopRule } from "../Bishop"
 import { RookRule } from "../Rook"
 import { QueenRule } from "../Queen"
+import { KingRule } from "../King"
 
 class RuleProxy {
   static isValidMove(
@@ -23,10 +24,12 @@ class RuleProxy {
       return KnightRule.isValidMove(initialPosition, finalPosition, team, boardState)
     } else if (type === PieceType.BISHOP) {
       return BishopRule.isValidMove(initialPosition, finalPosition, team, boardState)
-    } else if(type === PieceType.ROOK){
+    } else if (type === PieceType.ROOK) {
       return RookRule.isValidMove(initialPosition, finalPosition, team, boardState)
-    }else if(type === PieceType.QUEEN){
+    } else if (type === PieceType.QUEEN) {
       return QueenRule.isValidMove(initialPosition, finalPosition, team, boardState)
+    } else if (type === PieceType.KING) {
+      return KingRule.isValidMove(initialPosition, finalPosition, team, boardState)
     }
 
     return false
