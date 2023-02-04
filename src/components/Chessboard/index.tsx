@@ -19,14 +19,10 @@ function Chessboard(): JSX.Element {
     y: -1,
   });
   const [activePiece, setActivePiece] = useState<HTMLElement | null>(null);
-  const [promotionModal, setPromotionModal] = useState<{
-    visible: boolean;
-    team: Team;
-    position: PiecePosition;
-  }>({
+  const [promotionModal, setPromotionModal] = useState<{ visible: boolean, team: Team, position: PiecePosition }>({
     visible: false,
     team: Team.WHITE,
-    position: { x: -1, y: -1 },
+    position: { x: -1, y: -1 }
   });
   const [winModal, setWinModal] = useState({ visible: false, team: Team.WHITE });
   const [currentTeam, setCurrentTeam] = useState(Team.WHITE);
@@ -166,14 +162,9 @@ function Chessboard(): JSX.Element {
       return results;
     }, [] as Piece[]);
 
-    setPieces(updatePieces);
+    setPieces(updatePieces)
 
-    setPromotionModal({
-      visible: false,
-      team: Team.WHITE,
-      position: { x: -1, y: -1 },
-    });
-
+    setPromotionModal({ visible: false, team: Team.WHITE, position: { x: -1, y: -1 } });
     setCurrentTeam(currentTeam === Team.WHITE ? Team.BLACK : Team.WHITE);
   }
 
@@ -200,14 +191,7 @@ function Chessboard(): JSX.Element {
         }
       }
 
-      board.push(
-        <Tile
-          key={`${x}${y}`}
-          number={number}
-          image={image}
-          highlight={highlight}
-        />
-      );
+      board.push(<Tile key={`${x}${y}`} number={number} image={image} highlight={highlight} />);
     }
   }
 
