@@ -27,4 +27,23 @@
   &.white-tile{
     background-color: #ebecd0;
   }
+
+  &.highlight::before{
+    content: " ";
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.4);
+    position: fixed;
+    margin: 30px;
+  }
+
+  &.highlight-kill{
+    .piece{
+      background-color: red;
+      border: 1px solid rgb(0, 0, 0);
+      width: 79px;
+      height: 79px;
+    }
+  }
 }
