@@ -10,4 +10,12 @@
 #footer{
   width: 640px;
   margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .turn{
+    display: flex;
+    align-items: center;
+  }
 }

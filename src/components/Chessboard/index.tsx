@@ -9,6 +9,7 @@ import { comparePositions } from "../../helpers/comparePositions";
 import { RuleProxy } from "../../rules/RuleProxy";
 import { PromotionModal } from "../PromotionModal";
 import { Tile } from "../Tile";
+import { WinModal } from "../WinModal";
 import "./index.scss";
 
 function Chessboard(): JSX.Element {
@@ -27,6 +28,7 @@ function Chessboard(): JSX.Element {
     team: Team.WHITE,
     position: { x: -1, y: -1 },
   });
+  const [winModal, setWinModal] = useState({ visible: false, team: Team.WHITE });
   const [currentTeam, setCurrentTeam] = useState(Team.WHITE);
   const chessboardRef = useRef<HTMLDivElement>(null);
   const board: JSX.Element[] = [];
@@ -106,7 +108,6 @@ function Chessboard(): JSX.Element {
         );
 
         if (validMove) {
-          setCurrentTeam(currentTeam === Team.WHITE ? Team.BLACK : Team.WHITE);
           updatePiecePosition(currentPiece, { x, y });
         }
       }
@@ -119,7 +120,11 @@ function Chessboard(): JSX.Element {
   }
 
   function updatePiecePosition(currentPiece: Piece, position: PiecePosition) {
+    let endGame = false
     const updatePieces = pieces.reduce((results, piece) => {
+      if(comparePositions(piece.position, position)){
+        if(piece.type === PieceType.KING) endGame = true
+      }
       if (piece === currentPiece) {
         piece.position = position;
         results.push(piece);
@@ -131,10 +136,13 @@ function Chessboard(): JSX.Element {
     }, [] as Piece[]);
 
     setPieces(updatePieces);
-    if (
-      currentPiece.type == PieceType.PAWN &&
-      (position.y === 0 || position.y === 7)
-    ) {
+
+    if(endGame) {
+      setWinModal({visible: true, team: currentPiece.team})
+      return
+    }
+
+    if (currentPiece.type == PieceType.PAWN && (position.y === 0 || position.y === 7)) {
       setPromotionModal({
         visible: true,
         team: currentPiece.team,
@@ -142,6 +150,7 @@ function Chessboard(): JSX.Element {
       });
       return;
     }
+    setCurrentTeam(currentTeam === Team.WHITE ? Team.BLACK : Team.WHITE);
   }
 
   function onPromotion(pieceType: PieceType, image: string) {
@@ -164,6 +173,8 @@ function Chessboard(): JSX.Element {
       team: Team.WHITE,
       position: { x: -1, y: -1 },
     });
+
+    setCurrentTeam(currentTeam === Team.WHITE ? Team.BLACK : Team.WHITE);
   }
 
   for (let y = VERTICAL_AXIS.length - 1; y >= 0; y--) {
@@ -213,17 +224,24 @@ function Chessboard(): JSX.Element {
         {board}
       </div>
       <div id="footer">
-        <h2 style={{color: `${currentTeam === Team.BLACK ? 'black' : 'white'}`}}>
-        Turn: {currentTeam === Team.BLACK ? 'Black' : 'White'}
-        </h2>
+        <div className="turn">
+          <h2>
+            Turn:
+          </h2>
+          <div
+            style={{ backgroundImage: `url(assets/images/pawn_${currentTeam === Team.BLACK ? 'b' : 'w'}.png)` }}
+            className="piece">
+          </div>
+        </div>
       </div>
       <PromotionModal
         onChoose={onPromotion}
         visible={promotionModal.visible}
         team={promotionModal.team}
       />
+      <WinModal {...winModal} />
     </>
   );
 }
 
-export { Chessboard };
+export { Chessboard }
