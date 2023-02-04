@@ -16,7 +16,7 @@ class RuleProxy {
     type: PieceType,
     team: Team,
     boardState: Piece[]
-  ): Boolean {
+  ): boolean {
 
     if (type === PieceType.PAWN) {
       return PawnRule.isValidMove(initialPosition, finalPosition, team, boardState)

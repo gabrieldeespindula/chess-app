@@ -10,7 +10,7 @@ class PawnRule extends Rule {
     finalPosition: PiecePosition,
     team: Team,
     boardState: Piece[]
-  ): Boolean {
+  ): boolean {
 
     const startRow = team === Team.WHITE ? 1 : 6
     const direction = team === Team.WHITE ? 1 : -1

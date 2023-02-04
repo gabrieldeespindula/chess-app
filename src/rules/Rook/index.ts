@@ -11,7 +11,7 @@ class RookRule extends Rule {
     finalPosition: PiecePosition,
     team: Team,
     boardState: Piece[]
-  ): Boolean {
+  ): boolean {
 
     if(initialPosition.y === finalPosition.y || initialPosition.x === finalPosition.x){
       for(let i = 1; i < 8; i++){

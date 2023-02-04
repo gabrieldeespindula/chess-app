@@ -10,7 +10,7 @@ class KnightRule extends Rule {
     finalPosition: PiecePosition,
     team: Team,
     boardState: Piece[]
-  ): Boolean {
+  ): boolean {
 
     for (let i = -1; i < 2; i = i + 2) {
       if (finalPosition.y === initialPosition.y + 2 * i) {
