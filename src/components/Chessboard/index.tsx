@@ -212,6 +212,11 @@ function Chessboard(): JSX.Element {
       >
         {board}
       </div>
+      <div id="footer">
+        <h2 style={{color: `${currentTeam === Team.BLACK ? 'black' : 'white'}`}}>
+        Turn: {currentTeam === Team.BLACK ? 'Black' : 'White'}
+        </h2>
+      </div>
       <PromotionModal
         onChoose={onPromotion}
         visible={promotionModal.visible}
