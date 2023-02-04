@@ -11,7 +11,7 @@ class BishopRule extends Rule {
     finalPosition: PiecePosition,
     team: Team,
     boardState: Piece[]
-  ): Boolean {
+  ): boolean {
 
     for (let i = 1; i < 8; i++) {
       const xDirection = finalPosition.x > initialPosition.x ? 1 : -1

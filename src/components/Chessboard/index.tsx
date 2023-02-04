@@ -18,10 +18,10 @@ function Chessboard(): JSX.Element {
     y: -1,
   });
   const [activePiece, setActivePiece] = useState<HTMLElement | null>(null);
-  const [promotionModal, setPromotionModal] = useState<{visible: boolean, team: Team, position: PiecePosition}>({
+  const [promotionModal, setPromotionModal] = useState<{ visible: boolean, team: Team, position: PiecePosition }>({
     visible: false,
     team: Team.WHITE,
-    position: {x: -1, y: -1}
+    position: { x: -1, y: -1 }
   });
   const chessboardRef = useRef<HTMLDivElement>(null);
   const board: JSX.Element[] = [];
@@ -130,7 +130,7 @@ function Chessboard(): JSX.Element {
 
     setPieces(updatePieces);
 
-    setPromotionModal({ visible: false, team: Team.WHITE, position: {x: -1, y: -1} });
+    setPromotionModal({ visible: false, team: Team.WHITE, position: { x: -1, y: -1 } });
   }
 
   for (let y = VERTICAL_AXIS.length - 1; y >= 0; y--) {
@@ -140,7 +140,21 @@ function Chessboard(): JSX.Element {
         comparePositions(piece.position, { x, y })
       )?.image;
 
-      board.push(<Tile key={`${x}${y}`} number={number} image={image} />);
+      let highlight = false
+      if (activePiece) {
+        const currentPiece = pieces.find(p => comparePositions(p.position, grabPosition))
+        if (currentPiece) {
+          highlight = RuleProxy.isValidMove(
+            grabPosition,
+            { x, y },
+            currentPiece.type,
+            currentPiece.team,
+            pieces
+          );
+        }
+      }
+
+      board.push(<Tile key={`${x}${y}`} number={number} image={image} highlight={highlight} />);
     }
   }
 

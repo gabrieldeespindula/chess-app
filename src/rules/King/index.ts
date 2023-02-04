@@ -10,7 +10,7 @@ class KingRule extends Rule {
     finalPosition: PiecePosition,
     team: Team,
     boardState: Piece[]
-  ): Boolean {
+  ): boolean {
 
     const validX = Math.abs(finalPosition.x - initialPosition.x) <= 1
     const validY = Math.abs(finalPosition.y - initialPosition.y) <= 1
