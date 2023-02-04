@@ -18,11 +18,16 @@ function Chessboard(): JSX.Element {
     y: -1,
   });
   const [activePiece, setActivePiece] = useState<HTMLElement | null>(null);
-  const [promotionModal, setPromotionModal] = useState<{ visible: boolean, team: Team, position: PiecePosition }>({
+  const [promotionModal, setPromotionModal] = useState<{
+    visible: boolean;
+    team: Team;
+    position: PiecePosition;
+  }>({
     visible: false,
     team: Team.WHITE,
-    position: { x: -1, y: -1 }
+    position: { x: -1, y: -1 },
   });
+  const [currentTeam, setCurrentTeam] = useState(Team.WHITE);
   const chessboardRef = useRef<HTMLDivElement>(null);
   const board: JSX.Element[] = [];
 
@@ -30,17 +35,33 @@ function Chessboard(): JSX.Element {
     const element = e.target as HTMLElement;
     const chessboard = chessboardRef.current;
     if (element.classList.contains("piece") && chessboard) {
-      setGrabPosition({
-        x: Math.floor((e.clientX - chessboard.offsetLeft) / 80),
-        y: Math.abs(Math.ceil((e.clientY - chessboard.offsetTop - 640) / 80)),
-      });
-      const x = e.clientX - 41;
-      const y = e.clientY - 41;
-      element.style.position = "absolute";
-      element.style.left = `${x}px`;
-      element.style.top = `${y}px`;
+      const xGrabPosition = Math.floor(
+        (e.clientX - chessboard.offsetLeft) / 80
+      );
+      const yGrabPosition = Math.abs(
+        Math.ceil((e.clientY - chessboard.offsetTop - 640) / 80)
+      );
 
-      setActivePiece(element);
+      const currentPiece = pieces.find((piece) =>
+        comparePositions(piece.position, {
+          x: xGrabPosition,
+          y: yGrabPosition,
+        })
+      );
+
+      if (currentPiece?.team === currentTeam) {
+        setGrabPosition({
+          x: xGrabPosition,
+          y: yGrabPosition,
+        });
+        const x = e.clientX - 41;
+        const y = e.clientY - 41;
+        element.style.position = "absolute";
+        element.style.left = `${x}px`;
+        element.style.top = `${y}px`;
+
+        setActivePiece(element);
+      }
     }
   }
 
@@ -85,6 +106,7 @@ function Chessboard(): JSX.Element {
         );
 
         if (validMove) {
+          setCurrentTeam(currentTeam === Team.WHITE ? Team.BLACK : Team.WHITE);
           updatePiecePosition(currentPiece, { x, y });
         }
       }
@@ -109,8 +131,15 @@ function Chessboard(): JSX.Element {
     }, [] as Piece[]);
 
     setPieces(updatePieces);
-    if ((currentPiece.type == PieceType.PAWN && (position.y === 0 || position.y === 7))) {
-      setPromotionModal({ visible: true, team: currentPiece.team, position: position });
+    if (
+      currentPiece.type == PieceType.PAWN &&
+      (position.y === 0 || position.y === 7)
+    ) {
+      setPromotionModal({
+        visible: true,
+        team: currentPiece.team,
+        position: position,
+      });
       return;
     }
   }
@@ -130,7 +159,11 @@ function Chessboard(): JSX.Element {
 
     setPieces(updatePieces);
 
-    setPromotionModal({ visible: false, team: Team.WHITE, position: { x: -1, y: -1 } });
+    setPromotionModal({
+      visible: false,
+      team: Team.WHITE,
+      position: { x: -1, y: -1 },
+    });
   }
 
   for (let y = VERTICAL_AXIS.length - 1; y >= 0; y--) {
@@ -140,9 +173,11 @@ function Chessboard(): JSX.Element {
         comparePositions(piece.position, { x, y })
       )?.image;
 
-      let highlight = false
+      let highlight = false;
       if (activePiece) {
-        const currentPiece = pieces.find(p => comparePositions(p.position, grabPosition))
+        const currentPiece = pieces.find((p) =>
+          comparePositions(p.position, grabPosition)
+        );
         if (currentPiece) {
           highlight = RuleProxy.isValidMove(
             grabPosition,
@@ -154,7 +189,14 @@ function Chessboard(): JSX.Element {
         }
       }
 
-      board.push(<Tile key={`${x}${y}`} number={number} image={image} highlight={highlight} />);
+      board.push(
+        <Tile
+          key={`${x}${y}`}
+          number={number}
+          image={image}
+          highlight={highlight}
+        />
+      );
     }
   }
 
@@ -170,7 +212,11 @@ function Chessboard(): JSX.Element {
       >
         {board}
       </div>
-      <PromotionModal onChoose={onPromotion} visible={promotionModal.visible} team={promotionModal.team} />
+      <PromotionModal
+        onChoose={onPromotion}
+        visible={promotionModal.visible}
+        team={promotionModal.team}
+      />
     </>
   );
 }
