@@ -27,6 +27,7 @@ function PromotionModal({ visible, team, onChoose }: Props) {
           {pieces.map((piece, key) => (
             <div
               key={key}
+              className="piece"
               onClick={() => onChoose(piece.type, piece.image)}
               style={{ backgroundImage: `url(${piece.image})` }}
             ></div>

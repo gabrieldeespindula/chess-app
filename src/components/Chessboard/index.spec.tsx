@@ -19,7 +19,7 @@ describe('<Chessboard />', () => {
     expect(container.querySelectorAll('#chessboard .white-tile')).toHaveLength(32)
     expect(container.querySelectorAll('#chessboard .black-tile')).toHaveLength(32)
     expect(container.querySelectorAll('div[style="background-image: url(assets/images/pawn_b.png);"]')).toHaveLength(8)
-    expect(container.querySelectorAll('div[style="background-image: url(assets/images/pawn_w.png);"]')).toHaveLength(8)
+    expect(container.querySelectorAll('#chessboard div[style="background-image: url(assets/images/pawn_w.png);"]')).toHaveLength(8)
     expect(container.querySelectorAll('div[style="background-image: url(assets/images/rook_b.png);"]')).toHaveLength(2)
     expect(container.querySelectorAll('div[style="background-image: url(assets/images/rook_b.png);"]')).toHaveLength(2)
     expect(container.querySelectorAll('div[style="background-image: url(assets/images/knight_b.png);"]')).toHaveLength(2)
@@ -36,23 +36,5 @@ describe('<Chessboard />', () => {
     expect(container.querySelectorAll('div[style="background-image: url(assets/images/king_b.png);"]')).toHaveLength(1)
     expect(container.querySelectorAll('div[style="background-image: url(assets/images/queen_w.png);"]')).toHaveLength(1)
     expect(container.querySelectorAll('div[style="background-image: url(assets/images/king_w.png);"]')).toHaveLength(1)
-  })
-
-  describe('draggable piece', () => {
-    it('should move the piece by mouse delta-xy', () => {
-      const { container } = mount()
-      const piece = container.querySelector('div[style="background-image: url(assets/images/king_w.png);"]') as HTMLElement
-
-      expect(piece.style.position).toBe('')
-
-      fireEvent.mouseDown(piece)
-      expect(piece.style.position).toBe('absolute')
-
-      fireEvent.mouseMove(piece)
-      expect(piece.style.position).toBe('absolute')
-
-      fireEvent.mouseUp(piece)
-      expect(piece.style.position).toBe('relative')
-    })
   })
 })

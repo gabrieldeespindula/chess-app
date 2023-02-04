@@ -4,6 +4,18 @@
   grid-template-rows: repeat(8, 80px);
   width: 640px;
   height: 640px;
-  background-color: blue;
   margin: auto;
+}
+
+#footer{
+  width: 640px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .turn{
+    display: flex;
+    align-items: center;
+  }
 }

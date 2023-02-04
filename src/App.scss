@@ -4,4 +4,28 @@ body{
   .t-center{
     text-align: center;
   }
+
+  .piece{
+    width: 80px;
+    height: 80px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 70px;
+  }
+  .modal {
+    position: absolute;
+    left: calc(100vw / 2 - 320px);
+    top: 81px;
+    width: 640px;
+    height: 640px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+
+    .modal-content {
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 5px;
+    }
+  }
 }
